@@ -4,6 +4,7 @@ project:
   render: 
     - index.qmd
     - ReproducibleExampleSetup.qmd
+    - GatingExampleSetup.qmd
 execute:
   freeze: auto
 website:
@@ -25,6 +26,8 @@ website:
         menu:
         - text: "Reproducible Example Setup"
           href: ReproducibleExampleSetup.qmd
+        - text: "Gating Example Setup"
+          href: GatingExampleSetup.qmd
     right:
     - icon: github
       href: https://github.com/liveanddeadcat/Yuchen-s-little-spectral-flow-

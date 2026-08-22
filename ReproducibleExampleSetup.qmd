@@ -6,6 +6,7 @@ author:
   - name: David Rach
     orcid: 0000-0000-0000-0000
 format: html
+toc: true
 ---
 
 # Background
@@ -29,6 +30,17 @@ if (!dir.exists(OutputsFolder)){dir.create(OutputsFolder)}
 
 ImagesFolder <- file.path(WorkingDirectory, "images")
 if (!dir.exists(ImagesFolder)){dir.create(ImagesFolder)}
+
+RFolder <- file.path(WorkingDirectory, "R")
+if (!dir.exists(RFolder)){dir.create(RFolder)}
+
+# Yuchen's required folders
+
+refcontrolsFolder <- file.path(WorkingDirectory, "ref controls")
+if (!dir.exists(refcontrolsFolder)){dir.create(refcontrolsFolder)}
+
+afFolder <- file.path(WorkingDirectory, "af")
+if (!dir.exists(afFolder)){dir.create(afFolder)}
 ```
 
 ## Retrieving Dataset
@@ -139,6 +151,8 @@ Various R packages will need to be installed in order to run the respective scri
 # CRAN
 if (!requireNamespace("dplyr", quietly = TRUE)) install.packages("dplyr")
 if (!requireNamespace("ggplot2", quietly = TRUE)) install.packages("ggplot2")
+if (!requireNamespace("stringr", quietly = TRUE)) install.packages("stringr")  
+if (!requireNamespace("purrr", quietly = TRUE)) install.packages("purrr")     
 if (!requireNamespace("data.table", quietly = TRUE)) install.packages("data.table")
 
 # Bioconductor

@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -149,6 +149,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="./ReproducibleExampleSetup.html">
  <span class="dropdown-text">Reproducible Example Setup</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./GatingExampleSetup.html">
+ <span class="dropdown-text">Gating Example Setup</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -172,7 +176,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">Getting Started</a>
+  <ul class="collapse">
+  <li><a href="#checking-for-directories" id="toc-checking-for-directories" class="nav-link" data-scroll-target="#checking-for-directories">Checking for Directories</a></li>
+  <li><a href="#retrieving-dataset" id="toc-retrieving-dataset" class="nav-link" data-scroll-target="#retrieving-dataset">Retrieving Dataset</a></li>
+  <li><a href="#install-required-r-packages" id="toc-install-required-r-packages" class="nav-link" data-scroll-target="#install-required-r-packages">Install Required R Packages</a></li>
+  <li><a href="#setting-up-github-pages" id="toc-setting-up-github-pages" class="nav-link" data-scroll-target="#setting-up-github-pages">Setting up GitHub Pages</a></li>
+  </ul></li>
+  <li><a href="#take-away" id="toc-take-away" class="nav-link" data-scroll-target="#take-away">Take Away</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources">Additional Resources</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -221,7 +242,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(OutputsFolder)){<span class="fu">dir.create</span>(OutputsFolder)}</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ImagesFolder <span class="ot">&lt;-</span> <span class="fu">file.path</span>(WorkingDirectory, <span class="st">"images"</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(ImagesFolder)){<span class="fu">dir.create</span>(ImagesFolder)}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(ImagesFolder)){<span class="fu">dir.create</span>(ImagesFolder)}</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>RFolder <span class="ot">&lt;-</span> <span class="fu">file.path</span>(WorkingDirectory, <span class="st">"R"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(RFolder)){<span class="fu">dir.create</span>(RFolder)}</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Yuchen's required folders</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>refcontrolsFolder <span class="ot">&lt;-</span> <span class="fu">file.path</span>(WorkingDirectory, <span class="st">"ref controls"</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(refcontrolsFolder)){<span class="fu">dir.create</span>(refcontrolsFolder)}</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>afFolder <span class="ot">&lt;-</span> <span class="fu">file.path</span>(WorkingDirectory, <span class="st">"af"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(afFolder)){<span class="fu">dir.create</span>(afFolder)}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="retrieving-dataset" class="level2">
@@ -334,17 +366,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CRAN</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"dplyr"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"ggplot2"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"data.table"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"data.table"</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Bioconductor</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"flowCore"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"flowCore"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"ggcyto"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"ggcyto"</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># GitHub</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"remotes"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"flowSpectrum"</span>,</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a> <span class="at">quietly =</span> <span class="cn">TRUE</span>)) remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"https://github.com/hally166/flowSpectrum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"stringr"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"stringr"</span>)  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"purrr"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"purrr"</span>)     </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"data.table"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"data.table"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Bioconductor</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BiocManager"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"flowCore"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"flowCore"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"ggcyto"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">"ggcyto"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># GitHub</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"remotes"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"flowSpectrum"</span>,</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a> <span class="at">quietly =</span> <span class="cn">TRUE</span>)) remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"https://github.com/hally166/flowSpectrum"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="setting-up-github-pages" class="level2">
@@ -398,25 +432,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] generics_0.1.4       lattice_0.22-9       digest_0.6.39       
- [4] magrittr_2.0.5       evaluate_1.0.5       grid_4.6.1          
- [7] RColorBrewer_1.1-3   fastmap_1.2.0        ggcyto_1.40.0       
-[10] plyr_1.8.9           jsonlite_2.0.0       graph_1.90.0        
-[13] gridExtra_2.3.1      BiocManager_1.30.27  flowWorkspace_4.24.0
-[16] scales_1.4.0         XML_3.99-0.23        Rgraphviz_2.56.0    
-[19] cli_3.6.6            rlang_1.3.0          RProtoBufLib_2.24.0 
-[22] Biobase_2.72.0       remotes_2.5.0        yaml_2.3.12         
-[25] otel_0.2.0           cytolib_2.24.0       tools_4.6.1         
-[28] ncdfFlow_2.58.0      dplyr_1.2.1          ggplot2_4.0.3       
-[31] flowSpectrum_0.9.1   BiocGenerics_0.58.1  vctrs_0.7.3         
-[34] R6_2.6.1             matrixStats_1.5.0    stats4_4.6.1        
-[37] lifecycle_1.0.5      S4Vectors_0.50.1     flowCore_2.24.0     
-[40] htmlwidgets_1.6.4    pkgconfig_2.0.3      pillar_1.11.1       
-[43] hexbin_1.28.6        gtable_0.3.6         data.table_1.18.4   
-[46] glue_1.8.1           Rcpp_1.1.2           xfun_0.60           
-[49] tibble_3.3.1         tidyselect_1.2.1     knitr_1.51          
-[52] dichromat_2.0-1      farver_2.1.2         htmltools_0.5.9     
-[55] rmarkdown_2.31       compiler_4.6.1       S7_0.2.2            </code></pre>
+ [1] generics_0.1.4       lattice_0.22-9       stringi_1.8.9       
+ [4] digest_0.6.39        magrittr_2.0.5       evaluate_1.0.5      
+ [7] grid_4.6.1           RColorBrewer_1.1-3   fastmap_1.2.0       
+[10] plyr_1.8.9           ggcyto_1.40.0        jsonlite_2.0.0      
+[13] graph_1.90.0         gridExtra_2.3.1      BiocManager_1.30.27 
+[16] purrr_1.2.2          flowWorkspace_4.24.0 scales_1.4.0        
+[19] XML_3.99-0.23        Rgraphviz_2.56.0     cli_3.6.6           
+[22] rlang_1.3.0          RProtoBufLib_2.24.0  Biobase_2.72.0      
+[25] remotes_2.5.0        yaml_2.3.12          otel_0.2.0          
+[28] cytolib_2.24.0       tools_4.6.1          ncdfFlow_2.58.0     
+[31] dplyr_1.2.1          ggplot2_4.0.3        flowSpectrum_0.9.1  
+[34] BiocGenerics_0.58.1  vctrs_0.7.3          R6_2.6.1            
+[37] matrixStats_1.5.0    stats4_4.6.1         lifecycle_1.0.5     
+[40] stringr_1.6.0        S4Vectors_0.50.1     flowCore_2.24.0     
+[43] htmlwidgets_1.6.4    pkgconfig_2.0.3      pillar_1.11.1       
+[46] hexbin_1.28.6        gtable_0.3.6         Rcpp_1.1.2          
+[49] data.table_1.18.4    glue_1.8.1           xfun_0.60           
+[52] tibble_3.3.1         tidyselect_1.2.1     knitr_1.51          
+[55] dichromat_2.0-1      farver_2.1.2         htmltools_0.5.9     
+[58] rmarkdown_2.31       compiler_4.6.1       S7_0.2.2            </code></pre>
 </div>
 </div>
 
