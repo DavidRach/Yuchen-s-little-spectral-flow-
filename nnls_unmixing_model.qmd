@@ -1,6 +1,10 @@
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: FALSE
+
 library(flowCore)
-library(tidyverse)
+# library(tidyverse)
+library(dplyr)
 library(flowSpectrum)
 library(ggcyto)
 library(pheatmap)

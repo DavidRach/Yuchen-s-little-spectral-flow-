@@ -7,9 +7,13 @@ output:
     code_folding: "hide"
 ---
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: FALSE
+
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
+#library(tidyverse)
+library(dplyr)
 library(flowCore)
 library(flowSpectrum)
 library(ggcyto)
@@ -27,7 +31,10 @@ OLS unmixing with AF extraction as a separate parameter.
 
 ### Load pre-gated fcs files for cell only reference controls 
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
+#| message: FALSE
+#| warning: FALSE
+
 file.dir <-"./ref controls"
 files <- dir(file.dir, pattern = "fcs$", full.names=T)
 as.matrix(files)
@@ -40,7 +47,11 @@ as.matrix(names(dat))
 
 ## Generate the data frame of reference control spectral profiles
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| echo: FALSE
+
 p1 <- lapply(seq(2,length(dat), by = 2), function(i){spectralplot(dat[[i]], normalize = TRUE, guessPop = TRUE, unstained = dat[[i-1]])$data})
 
 #Name the list of new dfs
@@ -120,7 +131,9 @@ ggsave("./plots/bead_and_cell_ref control spectral profiles.png", width = 40, he
 
 ### Generate the spectral profile matrix and spectral unmixing matrix using SVD
 
-```{r, fig.height=6, fig.width=15}
+```{r}
+#| fig.height: 6
+#| fig.width: 15
 
 # construct the spectra matrix
 Mlist <- list()
@@ -293,9 +306,10 @@ diag(cos_M)<- 1
 p <- corrplot(cos_M, method = "shade",tl.col = "white", type = c("low"),  na.label = " ",cl.cex = 1.5,
               na.label.col = "white")
 ```
+
 ### Condition number of your panel
 This indicates how unstable the unmixing results might be due to small variance in the reference control panel.
 
 ```{r}
-kappa(M)
+kappa(M, exact=TRUE) 
 ```

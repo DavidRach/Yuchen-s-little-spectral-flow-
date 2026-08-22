@@ -7,7 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(flowSpectrum)
+library(flowSpectrum) #remotes::install_github("https://github.com/hally166/flowSpectrum")
 library(data.table)
 library(flowCore)
 library(matrixStats)

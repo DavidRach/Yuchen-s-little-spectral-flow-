@@ -1,11 +1,13 @@
 ---
 title: "Residual analysis"
 format: html
-editor: visual
+editor: source
 ---
 
-```{r, include = FALSE}
-library(tidyverse)
+```{r}
+#| include: FALSE
+#library(tidyverse)
+library(dplyr)
 library(matrixStats)
 library(data.table)
 library(flowCore)
@@ -131,7 +133,10 @@ Below are a few examples for quick residual analysis.
 
 This should be roughly approaching normal, as we have millions of events with potential Poisson noise (although not completely Poisson).
 
-```{r, fig.width=15, fig.height=5}
+```{r}
+#| fig.width: 15
+#| fig.height: 5
+
 # density plots with the Aurora channel order
 res <- t(res) # columns as channels to plot
 colnames(res)<-aurora_channels
@@ -168,7 +173,10 @@ geom_point()+
 
 ### Median channel-wise residual plot.
 
-```{r, fig.width = 9, fig.height = 5}
+```{r}
+#| fig.width: 9
+#| fig.height: 5
+
 # calculate median residuals
 colnames(res) <- aurora_channels
 df_med_res <- data.frame(

@@ -7,10 +7,14 @@ output:
     code_folding: hide
 ---
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#| include: FALSE
+
 knitr::opts_chunk$set(echo = TRUE)
 library(flowSpectrum)
-library(tidyverse)
+#library(tidyverse)
+library(dplyr)
 library(flowCore)
 library(data.table)
 library(matrixStats)
@@ -33,7 +37,9 @@ names(dat) <-gsub("./data/","",files)
 ```
 
 ## plotting
-```{r, fig.height= 5, fig.width=13}
+```{r}
+#| fig.height: 5
+#| fig.width: 13
 
 # make cell controls df
 p1 <- lapply(seq(2,length(cell_control), by = 2), function(i){spectralplot(cell_control[[i]], normalize = TRUE, guessPop = TRUE, unstained = cell_control[[i-1]])$data})
@@ -68,7 +74,10 @@ df <- dplyr::bind_rows(c(p1,p2))
 rm(p1,p2)
 
 ```
-```{r, fig.width=15, fig.height=25} 
+```{r}
+#| fig.width: 15
+#| fig.height: 25
+ 
 # Loop it through all markers
     table(df$sample)
     

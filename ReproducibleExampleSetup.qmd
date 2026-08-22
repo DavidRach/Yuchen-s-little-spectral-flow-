@@ -1,0 +1,193 @@
+---
+title: "Reproducible Setup Example"
+author:
+  - name: Yuchen Li
+    orcid: 0000-0000-0000-0000
+  - name: David Rach
+    orcid: 0000-0000-0000-0000
+format: html
+---
+
+# Background
+
+This quarto document (.qmd) is intended to assist in the setup of a reproducible environement needed to run the .qmd files within this "Little Spectral Course". This additionally permits the rendering of all the code chunks to produce Quarto Website pages, which in turn can be deployed to GitHub pages as a small Quarto website. 
+
+# Getting Started
+
+## Checking for Directories
+
+First, lets check the working directory for the presence of the reproducible example folders. If they are not found, the script will proceed to generate them for us. 
+
+```{r}
+WorkingDirectory <- getwd()
+
+DataFolder <- file.path(WorkingDirectory, "data")
+if (!dir.exists(DataFolder)){dir.create(DataFolder)}
+
+OutputsFolder <- file.path(WorkingDirectory, "outputs")
+if (!dir.exists(OutputsFolder)){dir.create(OutputsFolder)}
+
+ImagesFolder <- file.path(WorkingDirectory, "images")
+if (!dir.exists(ImagesFolder)){dir.create(ImagesFolder)}
+```
+
+## Retrieving Dataset
+
+This reproducible example can work with either your own .fcs files, or alternatively, we can retrieve the small downsampled dataset that is part of the [Cytometry in R]() course (originally part of the TRU-OLS/AutoSpectral community walkthroughs).
+
+```{r}
+RetrieveExternalDataset <- FALSE
+```
+
+```{r}
+if (RetrieveExternalDataset == TRUE){
+
+    if (!requireNamespace("httr", quietly = TRUE)) install.packages("httr")
+    if (!requireNamespace("jsonlite", quietly = TRUE)) install.packages("jsonlite")
+
+    library(httr)
+    library(jsonlite)
+
+    owner  <- "UMGCCCFCSR"
+    repo   <- "CytometryInR"
+    branch <- "main"
+
+    FullStainedSamplesPath <- "course/community/TRU-OLS/data/samples"
+    UnmixingControlPath <- "course/community/TRU-OLS/data/unmixing_controls"
+
+    #####################
+    #      Samples      #
+    #####################
+
+    SamplesFolder <- file.path(DataFolder, "samples")
+    if (!dir.exists(SamplesFolder)){dir.create(SamplesFolder)}
+
+    api_url <- sprintf(
+    "https://api.github.com/repos/%s/%s/contents/%s?ref=%s",
+    owner, repo, FullStainedSamplesPath, branch
+    )
+
+    resp <- GET(api_url)
+    stop_for_status(resp)
+
+    files <- fromJSON(content(resp, as = "text", encoding = "UTF-8"))
+
+    for (i in seq_len(nrow(files))) {
+    if (files$type[i] == "file") {
+        dest <- file.path(SamplesFolder, files$name[i])
+        download.file(files$download_url[i], destfile = dest, mode = "wb", quiet = TRUE)
+        message("Downloaded: ", files$name[i])
+    }
+    }
+
+    #####################
+    # Unmixing Controls #
+    #####################
+
+    UnmixingControlsFolder <- file.path(DataFolder, "unmixing_controls")
+    if (!dir.exists(UnmixingControlsFolder)){dir.create(UnmixingControlsFolder)}
+
+        api_url <- sprintf(
+    "https://api.github.com/repos/%s/%s/contents/%s?ref=%s",
+    owner, repo, UnmixingControlPath, branch
+    )
+
+    resp <- GET(api_url)
+    stop_for_status(resp)
+
+    files <- fromJSON(content(resp, as = "text", encoding = "UTF-8"))
+
+    for (i in seq_len(nrow(files))) {
+    if (files$type[i] == "file") {
+        dest <- file.path(UnmixingControlsFolder, files$name[i])
+        download.file(files$download_url[i], destfile = dest, mode = "wb", quiet = TRUE)
+        message("Downloaded: ", files$name[i])
+    }
+    }
+}
+```
+
+```{r}
+if (RetrieveExternalDataset == FALSE){
+ 
+    #####################
+    #      Samples      #
+    #####################
+
+    SamplesFolder <- file.path(DataFolder, "samples")
+    if (!dir.exists(SamplesFolder)){dir.create(SamplesFolder)}
+
+    message("Remember to transfer your full-stained samples to the 'data/samples' folder")
+
+    #####################
+    # Unmixing Controls #
+    #####################
+
+    UnmixingControlsFolder <- file.path(DataFolder, "unmixing_controls")
+    if (!dir.exists(UnmixingControlsFolder)){dir.create(UnmixingControlsFolder)}
+
+    message("Remember to transfer your unmixing controls to the 'data/samples' folder")
+
+}
+```
+
+## Install Required R Packages
+
+Various R packages will need to be installed in order to run the respective scripts and .qmd files. We can facilitate this by running a `requireNamespace()` check, and if they are not found, proceed to installation. An equally valid approach would be to setup via `renv` to avoid messing with the users existing installation.
+
+```{r}
+# CRAN
+if (!requireNamespace("dplyr", quietly = TRUE)) install.packages("dplyr")
+if (!requireNamespace("ggplot2", quietly = TRUE)) install.packages("ggplot2")
+if (!requireNamespace("data.table", quietly = TRUE)) install.packages("data.table")
+
+# Bioconductor
+if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+if (!requireNamespace("flowCore", quietly = TRUE)) BiocManager::install("flowCore")
+if (!requireNamespace("ggcyto", quietly = TRUE)) BiocManager::install("ggcyto")
+
+# GitHub
+if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+if (!requireNamespace("flowSpectrum",
+ quietly = TRUE)) remotes::install_github("https://github.com/hally166/flowSpectrum")
+```
+
+## Setting up GitHub Pages
+
+If you want to share the website version on GitHub pages, there are a couple additional steps for setup after addition of the index.qmd and _quarto.yml files. First off, render the website via your terminal with the following
+
+```{r}
+#| eval: FALSE
+
+# In your terminal when at the working directory level, run 
+
+quarto render
+```
+
+Once this is accomplished, add, commit and push your changes back to GitHub. 
+
+From there, navigate to Settings
+
+![](images/Settings.png)
+
+Select Pages
+
+![](images/Pages.png)
+
+Then select deploy from Branch, then the appropiate branch and docs folder. 
+
+![](images/BranchDocs.png)
+
+At which point you should be set. 
+
+# Take Away
+
+At this point, the initial folders needed for this reproducible example have been setup, the minimal .fcs files for the example transferred in, and the neccesary packages present (or retroactively installed). 
+
+# Additional Resources
+
+[]()
+
+```{r}
+sessionInfo()
+```

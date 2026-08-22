@@ -7,9 +7,13 @@ output:
     code_folding: "hide"
 ---
 
-```{r setup, include=FALSE}
+```{r}
+#| label: setup
+#  include: FALSE
+
 knitr::opts_chunk$set(echo = TRUE)
-library(tidyverse)
+#library(tidyverse)
+library(dplyr)
 library(flowCore)
 library(flowSpectrum)
 library(ggcyto)
@@ -25,7 +29,10 @@ dir.create("./plots")
 
 ### Load pre-gated fcs files for reference controls 
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
+#| message: FALSE
+#| warning: FALSE
+
 file.dir <-"./ref controls"
 files <- dir("./ref controls", pattern = "fcs$", full.names=T)
 as.matrix(files)
@@ -38,7 +45,11 @@ as.matrix(names(dat))
 
 ## Generate the data frame of reference control spectral profiles
 
-```{r, message=FALSE, warning=FALSE, echo=FALSE}
+```{r}
+#| message: FALSE
+#| warning: FALSE
+#| echo: FALSE
+
 p1 <- lapply(seq(2,length(dat), by = 2), function(i){spectralplot(dat[[i]], normalize = TRUE, guessPop = TRUE, unstained = dat[[i-1]])$data})
 
 #Name the list of new dfs
@@ -175,6 +186,7 @@ unmixed_data <- cbind(exprs(sample[,sample@parameters@data$name[!sample@paramete
       t_unmixed_matrix)
 rm(p1,dat)
 ```
+
 Save the unmixing results.
 
 ```{r}
