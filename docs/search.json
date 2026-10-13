@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "ReproducibleExampleSetup.html",
+    "href": "ReproducibleExampleSetup.html",
+    "title": "Reproducible Setup Example",
+    "section": "",
+    "text": "This quarto markdown document (.qmd) is used to setup a reproducible environment needed to run the “Little Spectral Course” .qmd files for use in unmixing. Separately, the rendered code chunks together create a Quarto website, which can then be deployed to GitHub pages so that others can access it via an url."
+  },
+  {
+    "objectID": "ReproducibleExampleSetup.html#checking-for-directories",
+    "href": "ReproducibleExampleSetup.html#checking-for-directories",
+    "title": "Reproducible Setup Example",
+    "section": "Checking for Directories",
+    "text": "Checking for Directories\nFirst, lets check the working directory for the presence of the reproducible example folders. If they are not found, the script will proceed to generate them for us.\n\nWorkingDirectory &lt;- getwd()\n\n# Cytometry-in-R-style organizational folders\n\nDataFolder &lt;- file.path(WorkingDirectory, \"data\")\nif (!dir.exists(DataFolder)){dir.create(DataFolder)}\n\nOutputsFolder &lt;- file.path(WorkingDirectory, \"outputs\")\nif (!dir.exists(OutputsFolder)){dir.create(OutputsFolder)}\n\nImagesFolder &lt;- file.path(WorkingDirectory, \"images\")\nif (!dir.exists(ImagesFolder)){dir.create(ImagesFolder)}\n\nRFolder &lt;- file.path(WorkingDirectory, \"R\")\nif (!dir.exists(RFolder)){dir.create(RFolder)}\n\n# Yuchen's required folders\n\nrefcontrolsFolder &lt;- file.path(WorkingDirectory, \"ref controls\")\n# if (!dir.exists(refcontrolsFolder)){dir.create(refcontrolsFolder)}\n\nafFolder &lt;- file.path(WorkingDirectory, \"af\")\n# if (!dir.exists(afFolder)){dir.create(afFolder)}"
+  },
+  {
+    "objectID": "ReproducibleExampleSetup.html#dataset-retrieval",
+    "href": "ReproducibleExampleSetup.html#dataset-retrieval",
+    "title": "Reproducible Setup Example",
+    "section": "Dataset Retrieval",
+    "text": "Dataset Retrieval\nFor this reproducible example, you can either provide your own .fcs files, or alternatively, use a small downsampled dataset used for the TRU-OLS/AutoSpectral walk-through in the Cytometry in R course. If you want to use the provided dataset, set the value below to “TRUE”.\n\nRetrieveExternalDataset &lt;- FALSE\n# RetrieveExternalDataset &lt;- TRUE\n\n\nif (RetrieveExternalDataset == TRUE){\n\n    if (!requireNamespace(\"httr\", quietly = TRUE)) install.packages(\"httr\")\n    if (!requireNamespace(\"jsonlite\", quietly = TRUE)) install.packages(\"jsonlite\")\n\n    library(httr)\n    library(jsonlite)\n\n    owner  &lt;- \"UMGCCCFCSR\"\n    repo   &lt;- \"CytometryInR\"\n    branch &lt;- \"main\"\n\n    FullStainedSamplesPath &lt;- \"course/community/TRU-OLS/data/samples\"\n    UnmixingControlPath &lt;- \"course/community/TRU-OLS/data/unmixing_controls\"\n\n    #####################\n    #      Samples      #\n    #####################\n\n    SamplesFolder &lt;- file.path(DataFolder, \"samples\")\n    if (!dir.exists(SamplesFolder)){dir.create(SamplesFolder)}\n\n    api_url &lt;- sprintf(\n    \"https://api.github.com/repos/%s/%s/contents/%s?ref=%s\",\n    owner, repo, FullStainedSamplesPath, branch\n    )\n\n    resp &lt;- GET(api_url)\n    stop_for_status(resp)\n\n    files &lt;- fromJSON(content(resp, as = \"text\", encoding = \"UTF-8\"))\n\n    for (i in seq_len(nrow(files))) {\n    if (files$type[i] == \"file\") {\n        dest &lt;- file.path(SamplesFolder, files$name[i])\n        download.file(files$download_url[i], destfile = dest, mode = \"wb\", quiet = TRUE)\n        message(\"Downloaded: \", files$name[i])\n    }\n    }\n\n    #####################\n    # Unmixing Controls #\n    #####################\n\n    UnmixingControlsFolder &lt;- file.path(DataFolder, \"unmixing_controls\")\n    if (!dir.exists(UnmixingControlsFolder)){dir.create(UnmixingControlsFolder)}\n\n        api_url &lt;- sprintf(\n    \"https://api.github.com/repos/%s/%s/contents/%s?ref=%s\",\n    owner, repo, UnmixingControlPath, branch\n    )\n\n    resp &lt;- GET(api_url)\n    stop_for_status(resp)\n\n    files &lt;- fromJSON(content(resp, as = \"text\", encoding = \"UTF-8\"))\n\n    for (i in seq_len(nrow(files))) {\n    if (files$type[i] == \"file\") {\n        dest &lt;- file.path(UnmixingControlsFolder, files$name[i])\n        download.file(files$download_url[i], destfile = dest, mode = \"wb\", quiet = TRUE)\n        message(\"Downloaded: \", files$name[i])\n    }\n    }\n}\n\n\nif (RetrieveExternalDataset == FALSE){\n \n    #####################\n    #      Samples      #\n    #####################\n\n    SamplesFolder &lt;- file.path(DataFolder, \"samples\")\n    if (!dir.exists(SamplesFolder)){dir.create(SamplesFolder)}\n\n    message(\"Remember to transfer your full-stained samples to the 'data/samples' folder\")\n\n    #####################\n    # Unmixing Controls #\n    #####################\n\n    UnmixingControlsFolder &lt;- file.path(DataFolder, \"unmixing_controls\")\n    if (!dir.exists(UnmixingControlsFolder)){dir.create(UnmixingControlsFolder)}\n\n    message(\"Remember to transfer your unmixing controls to the 'data/unmixing_controls' folder\")\n\n}\n\nRemember to transfer your full-stained samples to the 'data/samples' folder\n\n\nRemember to transfer your unmixing controls to the 'data/unmixing_controls' folder\n\n\nAt this point, within your working directory, you will have a data folder with subfolders for both samples and unmixing_controls. If you are providing your own .fcs files, please copy the corresponding raw .fcs files to their respective folders."
+  },
+  {
+    "objectID": "ReproducibleExampleSetup.html#install-required-r-packages",
+    "href": "ReproducibleExampleSetup.html#install-required-r-packages",
+    "title": "Reproducible Setup Example",
+    "section": "Install Required R Packages",
+    "text": "Install Required R Packages\nVarious R packages need to be installed in order to run the respective scripts and .qmd files. To facilitate installation, we can run the requireNamespace() function. This will check to see whether it is installed, and if not, install it.\n\n# CRAN\nif (!requireNamespace(\"dplyr\", quietly = TRUE)) install.packages(\"dplyr\")\nif (!requireNamespace(\"ggplot2\", quietly = TRUE)) install.packages(\"ggplot2\")\nif (!requireNamespace(\"stringr\", quietly = TRUE)) install.packages(\"stringr\")  \nif (!requireNamespace(\"purrr\", quietly = TRUE)) install.packages(\"purrr\")     \nif (!requireNamespace(\"data.table\", quietly = TRUE)) install.packages(\"data.table\")\n\n# Bioconductor\nif (!requireNamespace(\"BiocManager\", quietly = TRUE)) install.packages(\"BiocManager\")\nif (!requireNamespace(\"flowCore\", quietly = TRUE)) BiocManager::install(\"flowCore\")\nif (!requireNamespace(\"ggcyto\", quietly = TRUE)) BiocManager::install(\"ggcyto\")\n\n# GitHub\nif (!requireNamespace(\"remotes\", quietly = TRUE)) install.packages(\"remotes\")\nif (!requireNamespace(\"flowSpectrum\",\n quietly = TRUE)) remotes::install_github(\"https://github.com/hally166/flowSpectrum\")\n\n\n\n\n\n\n\nTip\n\n\n\nAn alternate approach would be to specify the environment setup via renv, which would avoid messing with users existing installations."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Yuchen’s Little Spectral Flow Cytometry Analysis Workflows",
+    "section": "",
+    "text": "This is the Quarto Website home page placeholder. Until it gets written out, here is the mandatory cat tax.\n\nBest- David"
+  },
+  {
+    "objectID": "SettingUpGitHubPages.html",
+    "href": "SettingUpGitHubPages.html",
+    "title": "Setting Up GitHub pages",
+    "section": "",
+    "text": "If you want to share the website version on GitHub pages, there are a couple additional steps for setup after addition of the index.qmd and _quarto.yml files. First off, render the website via your terminal with the following\n\n# In your terminal when at the working directory level, run \n\nquarto render\n\nOnce this is accomplished, add, commit and push your changes back to GitHub.\nFrom there, navigate to Settings\n\nSelect Pages\n\nThen select deploy from Branch, then the appropiate branch and docs folder.\n\nAt which point you should be set."
+  }
+]
