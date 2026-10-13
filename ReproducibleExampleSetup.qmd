@@ -11,16 +11,18 @@ toc: true
 
 # Background
 
-This quarto document (.qmd) is intended to assist in the setup of a reproducible environement needed to run the .qmd files within this "Little Spectral Course". This additionally permits the rendering of all the code chunks to produce Quarto Website pages, which in turn can be deployed to GitHub pages as a small Quarto website. 
+This quarto markdown document (.qmd) is used to setup a reproducible environment needed to run the "Little Spectral Course" .qmd files for use in unmixing. Separately, the rendered code chunks together create a Quarto website, which can then be deployed to GitHub pages so that others can access it via an url.
 
 # Getting Started
 
 ## Checking for Directories
 
-First, lets check the working directory for the presence of the reproducible example folders. If they are not found, the script will proceed to generate them for us. 
+First, lets check the [working directory](https://umgcccfcsr.github.io/CytometryInR/course/02_FilePaths/#working-directory) for the presence of the reproducible example folders. If they are not found, the script will proceed to generate them for us. 
 
 ```{r}
 WorkingDirectory <- getwd()
+
+# Cytometry-in-R-style organizational folders
 
 DataFolder <- file.path(WorkingDirectory, "data")
 if (!dir.exists(DataFolder)){dir.create(DataFolder)}
@@ -37,18 +39,19 @@ if (!dir.exists(RFolder)){dir.create(RFolder)}
 # Yuchen's required folders
 
 refcontrolsFolder <- file.path(WorkingDirectory, "ref controls")
-if (!dir.exists(refcontrolsFolder)){dir.create(refcontrolsFolder)}
+# if (!dir.exists(refcontrolsFolder)){dir.create(refcontrolsFolder)}
 
 afFolder <- file.path(WorkingDirectory, "af")
-if (!dir.exists(afFolder)){dir.create(afFolder)}
+# if (!dir.exists(afFolder)){dir.create(afFolder)}
 ```
 
-## Retrieving Dataset
+## Dataset Retrieval
 
-This reproducible example can work with either your own .fcs files, or alternatively, we can retrieve the small downsampled dataset that is part of the [Cytometry in R]() course (originally part of the TRU-OLS/AutoSpectral community walkthroughs).
+For this reproducible example, you can either provide your own .fcs files, or alternatively, use a small downsampled dataset used for the TRU-OLS/AutoSpectral walk-through in the [Cytometry in R](https://umgcccfcsr.github.io/CytometryInR/course/) course. If you want to use the provided dataset, set the value below to "TRUE". 
 
 ```{r}
 RetrieveExternalDataset <- FALSE
+# RetrieveExternalDataset <- TRUE
 ```
 
 ```{r}
@@ -138,14 +141,16 @@ if (RetrieveExternalDataset == FALSE){
     UnmixingControlsFolder <- file.path(DataFolder, "unmixing_controls")
     if (!dir.exists(UnmixingControlsFolder)){dir.create(UnmixingControlsFolder)}
 
-    message("Remember to transfer your unmixing controls to the 'data/samples' folder")
+    message("Remember to transfer your unmixing controls to the 'data/unmixing_controls' folder")
 
 }
 ```
 
+At this point, within your working directory, you will have a data folder with subfolders for both samples and unmixing_controls. If you are providing your own .fcs files, please copy the corresponding raw .fcs files to their respective folders. 
+
 ## Install Required R Packages
 
-Various R packages will need to be installed in order to run the respective scripts and .qmd files. We can facilitate this by running a `requireNamespace()` check, and if they are not found, proceed to installation. An equally valid approach would be to setup via `renv` to avoid messing with the users existing installation.
+Various [R packages](https://umgcccfcsr.github.io/CytometryInR/course/01_InstallingRPackages) need to be installed in order to run the respective scripts and .qmd files. To facilitate installation, we can run the `requireNamespace()` function. This will check to see whether it is installed, and if not, install it. 
 
 ```{r}
 # CRAN
@@ -166,41 +171,20 @@ if (!requireNamespace("flowSpectrum",
  quietly = TRUE)) remotes::install_github("https://github.com/hally166/flowSpectrum")
 ```
 
-## Setting up GitHub Pages
+:::{.callout-tip}
+An alternate approach would be to specify the environment setup via `renv`, which would avoid messing with users existing installations. 
+:::
 
-If you want to share the website version on GitHub pages, there are a couple additional steps for setup after addition of the index.qmd and _quarto.yml files. First off, render the website via your terminal with the following
-
-```{r}
-#| eval: FALSE
-
-# In your terminal when at the working directory level, run 
-
-quarto render
-```
-
-Once this is accomplished, add, commit and push your changes back to GitHub. 
-
-From there, navigate to Settings
-
-![](images/Settings.png)
-
-Select Pages
-
-![](images/Pages.png)
-
-Then select deploy from Branch, then the appropiate branch and docs folder. 
-
-![](images/BranchDocs.png)
-
-At which point you should be set. 
 
 # Take Away
 
-At this point, the initial folders needed for this reproducible example have been setup, the minimal .fcs files for the example transferred in, and the neccesary packages present (or retroactively installed). 
+At this point, we have the required folder structure needed to keep things organized, have had the opportunity to bring in the .fcs files we will be utilizing for unmixing, and ensured that any necessary packages are installed in our local environment. 
 
 # Additional Resources
 
 []()
+
+# Session Info
 
 ```{r}
 sessionInfo()
