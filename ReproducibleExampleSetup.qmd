@@ -159,6 +159,7 @@ if (!requireNamespace("ggplot2", quietly = TRUE)) install.packages("ggplot2")
 if (!requireNamespace("stringr", quietly = TRUE)) install.packages("stringr")  
 if (!requireNamespace("purrr", quietly = TRUE)) install.packages("purrr")     
 if (!requireNamespace("data.table", quietly = TRUE)) install.packages("data.table")
+if (!requireNamespace("pheatmap", quietly = TRUE)) install.packages("pheatmap")
 
 # Bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")

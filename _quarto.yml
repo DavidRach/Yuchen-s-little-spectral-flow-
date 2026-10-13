@@ -6,6 +6,7 @@ project:
     - SettingUpGitHubPages.qmd
     - ReproducibleExampleSetup.qmd
     - GatingExampleSetup.qmd
+    - wls_unmixing.qmd
 execute:
   freeze: auto
 website:
@@ -29,6 +30,8 @@ website:
           href: ReproducibleExampleSetup.qmd
         - text: "Gating Example Setup"
           href: GatingExampleSetup.qmd
+        - text: "WLS Unmixing"
+          href: wls_unmixing.qmd
     right:
     - icon: github
       href: https://github.com/liveanddeadcat/Yuchen-s-little-spectral-flow-
