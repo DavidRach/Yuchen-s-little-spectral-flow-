@@ -5,6 +5,7 @@ project:
     - index.qmd
     - SettingUpGitHubPages.qmd
     - ReproducibleExampleSetup.qmd
+    - GatingExampleSetup.qmd
 execute:
   freeze: auto
 website:

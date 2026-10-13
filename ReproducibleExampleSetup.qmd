@@ -39,10 +39,10 @@ if (!dir.exists(RFolder)){dir.create(RFolder)}
 # Yuchen's required folders
 
 refcontrolsFolder <- file.path(WorkingDirectory, "ref controls")
-# if (!dir.exists(refcontrolsFolder)){dir.create(refcontrolsFolder)}
+ if (!dir.exists(refcontrolsFolder)){dir.create(refcontrolsFolder)}
 
 afFolder <- file.path(WorkingDirectory, "af")
-# if (!dir.exists(afFolder)){dir.create(afFolder)}
+ if (!dir.exists(afFolder)){dir.create(afFolder)}
 ```
 
 ## Dataset Retrieval
@@ -174,7 +174,6 @@ if (!requireNamespace("flowSpectrum",
 :::{.callout-tip}
 An alternate approach would be to specify the environment setup via `renv`, which would avoid messing with users existing installations. 
 :::
-
 
 # Take Away
 

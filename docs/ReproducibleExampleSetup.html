@@ -82,7 +82,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6f6aba0dcc0820cd94830540b68c7d73.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-2bdd27f1b46cb9d469bd582ab29e3c10.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -150,7 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Reproducible Example Setup</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./GatingExampleSetup.qmd">
+    <a class="dropdown-item" href="./GatingExampleSetup.html">
  <span class="dropdown-text">Gating Example Setup</span></a>
   </li>  
     </ul>
@@ -252,10 +252,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Yuchen's required folders</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>refcontrolsFolder <span class="ot">&lt;-</span> <span class="fu">file.path</span>(WorkingDirectory, <span class="st">"ref controls"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># if (!dir.exists(refcontrolsFolder)){dir.create(refcontrolsFolder)}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(refcontrolsFolder)){<span class="fu">dir.create</span>(refcontrolsFolder)}</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>afFolder <span class="ot">&lt;-</span> <span class="fu">file.path</span>(WorkingDirectory, <span class="st">"af"</span>)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># if (!dir.exists(afFolder)){dir.create(afFolder)}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a> <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(afFolder)){<span class="fu">dir.create</span>(afFolder)}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="dataset-retrieval" class="level2">
@@ -435,26 +435,26 @@ attached base packages:
 [1] stats     graphics  grDevices utils     datasets  methods   base     
 
 loaded via a namespace (and not attached):
- [1] generics_0.1.4       lattice_0.22-9       stringi_1.8.9       
+ [1] generics_0.1.4       stringi_1.8.9        lattice_0.22-9      
  [4] digest_0.6.39        magrittr_2.0.5       evaluate_1.0.5      
  [7] grid_4.6.1           RColorBrewer_1.1-3   fastmap_1.2.0       
-[10] plyr_1.8.9           ggcyto_1.40.0        jsonlite_2.0.0      
+[10] ggcyto_1.40.0        plyr_1.8.9           jsonlite_2.0.0      
 [13] graph_1.90.0         gridExtra_2.3.1      BiocManager_1.30.27 
 [16] purrr_1.2.2          flowWorkspace_4.24.0 scales_1.4.0        
-[19] XML_3.99-0.23        Rgraphviz_2.56.0     cli_3.6.6           
+[19] XML_3.99-0.25        Rgraphviz_2.56.0     cli_3.6.6           
 [22] rlang_1.3.0          RProtoBufLib_2.24.0  Biobase_2.72.0      
 [25] remotes_2.5.0        yaml_2.3.12          otel_0.2.0          
 [28] cytolib_2.24.0       tools_4.6.1          ncdfFlow_2.58.0     
 [31] dplyr_1.2.1          ggplot2_4.0.3        flowSpectrum_0.9.1  
 [34] BiocGenerics_0.58.1  vctrs_0.7.3          R6_2.6.1            
 [37] matrixStats_1.5.0    stats4_4.6.1         lifecycle_1.0.5     
-[40] stringr_1.6.0        S4Vectors_0.50.1     flowCore_2.24.0     
+[40] stringr_1.6.0        S4Vectors_0.50.3     flowCore_2.24.0     
 [43] htmlwidgets_1.6.4    pkgconfig_2.0.3      pillar_1.11.1       
 [46] hexbin_1.28.6        gtable_0.3.6         Rcpp_1.1.2          
-[49] data.table_1.18.6.1  glue_1.8.1           xfun_0.60           
-[52] tibble_3.3.1         tidyselect_1.2.1     knitr_1.51          
-[55] dichromat_2.0-1      farver_2.1.2         htmltools_0.5.9     
-[58] rmarkdown_2.31       compiler_4.6.1       S7_0.2.2            </code></pre>
+[49] data.table_1.18.6.1  glue_1.8.1           xfun_0.61           
+[52] tibble_3.3.1         tidyselect_1.2.1     knitr_1.52          
+[55] farver_2.1.2         htmltools_0.5.9      rmarkdown_2.32      
+[58] compiler_4.6.1       S7_0.2.2            </code></pre>
 </div>
 </div>
 
